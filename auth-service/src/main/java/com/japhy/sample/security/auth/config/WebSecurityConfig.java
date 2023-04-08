@@ -50,10 +50,9 @@ public class WebSecurityConfig {
     @Order(2)
     public SecurityFilterChain standardSecurityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/api/v1/auth/*").permitAll()
+                        .requestMatchers("/api/v1/auth/*", "/oauth2/**").permitAll()
                         .requestMatchers("/webjars/**", "/swagger*/**", "/v3/api-docs/**").permitAll()
-                        // .anyRequest().authenticated()
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated()
                 )
                 .csrf().disable()
                 .cors().disable()

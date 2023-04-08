@@ -40,8 +40,6 @@ public class TokenProvider {
                 .expiresAt(now.plusSeconds(expiry))
                 .subject("subject")
                 .claim("email", user.getEmail())
-                .claim("authorities",
-                        user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList())
                 .claim("scp",
                         user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList())
                 .build();

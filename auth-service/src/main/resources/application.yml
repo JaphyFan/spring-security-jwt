@@ -3,26 +3,18 @@ logging:
     root: INFO
     org.springframework.web: INFO
     org.springframework.security: INFO
-#    org.springframework.boot.autoconfigure: DEBUG
 
 jwt:
-  private.key: classpath:app.key
-  public.key: classpath:app.pub
+  access:
+    private.key: classpath:app.key
+    public.key: classpath:app.pub
 server:
-  port: 8091
+  port: 8081
 
 springdoc:
   version: '@project.version@'
   swagger-ui:
     use-root-path: true
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
 spring:
   application:
-    name: oauth-service
-  graphql:
-    schema:
-      introspection:
-
+    name: auth-service

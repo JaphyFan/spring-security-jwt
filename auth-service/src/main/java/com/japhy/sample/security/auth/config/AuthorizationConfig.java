@@ -35,16 +35,13 @@ public class AuthorizationConfig {
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.JWT_BEARER)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/messaging-client-oidc")
-                .redirectUri("http://127.0.0.1:8080/authorized")
-                .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
                 .build();
 
         return new InMemoryRegisteredClientRepository(registeredClient);
     }
 
     @Bean
-    public OAuth2AuthorizationService authorizationService(RegisteredClientRepository registeredClientRepository) {
+    public OAuth2AuthorizationService authorizationService() {
         return new InMemoryOAuth2AuthorizationService();
     }
 

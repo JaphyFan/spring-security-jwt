@@ -33,10 +33,4 @@ public class AuthApi {
         return ResponseEntity.ok(authService.login(loginRequestDto));
     }
 
-    @GetMapping("/token")
-    public ResponseEntity<TokenDto> reissueToken(
-            @RequestHeader("authorization") String accessToken) {
-        return ResponseEntity.ok(authService.reissueToken(accessToken));
-    }
-
 }

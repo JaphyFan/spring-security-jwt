@@ -23,17 +23,11 @@ import org.springframework.security.oauth2.server.authorization.config.annotatio
 @Configuration
 public class JWTConfig {
 
-    @Value("${jwt.public.key}")
+    @Value("${jwt.access.public.key}")
     RSAPublicKey accessPubKey;
 
-    @Value("${jwt.private.key}")
+    @Value("${jwt.access.private.key}")
     RSAPrivateKey accessPriKey;
-
-    // @Bean
-    // @Primary
-    // JwtDecoder jwtDecoder() {
-    //     return NimbusJwtDecoder.withPublicKey(this.accessPubKey).build();
-    // }
 
     @Bean
     @Primary

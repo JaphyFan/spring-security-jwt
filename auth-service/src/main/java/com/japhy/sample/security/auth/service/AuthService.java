@@ -8,9 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.security.oauth2.server.resource.authentication.BearerTokenAuthenticationToken;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationProvider;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,8 +19,6 @@ public class AuthService {
 
     private final DaoAuthenticationProvider daoAuthenticationProvider;
 
-    private final JwtAuthenticationProvider refreshTokenAuthProvider;
-
     public TokenDto login(LoginRequestDto loginRequestDto) {
         Authentication authentication = daoAuthenticationProvider.authenticate(
                 UsernamePasswordAuthenticationToken.unauthenticated(loginRequestDto.email(),
@@ -33,13 +28,5 @@ public class AuthService {
 
     public void signup(final SignupUserDto signupUserDto) {
         userService.createUser(signupUserDto.toEntity());
-    }
-
-    public TokenDto reissueToken(String accessToken) {
-        Authentication authentication = refreshTokenAuthProvider.authenticate(
-                new BearerTokenAuthenticationToken(accessToken));
-        Jwt jwt = (Jwt) authentication.getCredentials();
-        // check if present in db and not revoked, etc
-        return tokenProvider.generateToken(authentication);
     }
 }
