@@ -1,0 +1,31 @@
+server:
+  port: 9999
+  application:
+
+management:
+  info:
+    git:
+      mode: full
+  endpoints:
+    web:
+      base-path: /mgm
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+spring:
+  mvc:
+    problemdetails:
+      enabled: true
+    throw-exception-if-no-handler-found: true
+  application:
+    name: web-service
+
+springdoc:
+  version: '@project.version@'
+  swagger-ui:
+    use-root-path: true
+
+

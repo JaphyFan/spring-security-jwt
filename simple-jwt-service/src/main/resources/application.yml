@@ -1,0 +1,24 @@
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+#    org.springframework.boot.autoconfigure: DEBUG
+
+jwt:
+  access:
+    private.key: classpath:app.key
+    public.key: classpath:app.pub
+  refresh:
+    private.key: classpath:refresh.key
+    public.key: classpath:refresh.pub
+server:
+  port: 8081
+
+springdoc:
+  version: '@project.version@'
+  swagger-ui:
+    use-root-path: true
+spring:
+  application:
+    name: auth-service
