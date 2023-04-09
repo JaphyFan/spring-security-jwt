@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+title Jwt PreAuthorize Authorization Diagram
+autonumber
+
+AuthorizationManagerBeforeMethodInterceptor -> ObservationAuthorizationManager: 执行check
+ObservationAuthorizationManager -> PreAuthorizeAuthorizationManager: 继续check
+PreAuthorizeAuthorizationManager -> PreAuthorizeExpressionAttributeRegistry: 解析表达式
+PreAuthorizeExpressionAttributeRegistry --> PreAuthorizeAuthorizationManager: 返回ExpressionAttribute
+PreAuthorizeAuthorizationManager -> DefaultMethodSecurityExpressionHandler: createEvaluationContext
+DefaultMethodSecurityExpressionHandler --> PreAuthorizeAuthorizationManager: 返回EvaluationContext
+PreAuthorizeAuthorizationManager -> ExpressionUtils: ExpressionUtils.evaluateAsBoolean
+ExpressionUtils -> SpelExpression: getValue(ctx, boolean): 验证表达式，校验权限
+ExpressionUtils --> PreAuthorizeAuthorizationManager: 返回boolean
+PreAuthorizeAuthorizationManager --> AuthorizationManagerBeforeMethodInterceptor: 返回boolean
+@enduml

@@ -1,0 +1,21 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+title jwt Authentication Diagram
+
+autonumber
+filterChain -> BearerTokenAuthenticationFilter: jwtFilter
+BearerTokenAuthenticationFilter -> ObservationAuthenticationManager: authenticationManager.authenticate(authenticationRequest),filter调用认证方法
+ObservationAuthenticationManager -> ProviderManager: ProviderManager.authenticate()
+providerManager -> JwtAuthenticationProvider: JwtAuthenticationProvider.authenticate()
+JwtAuthenticationProvider -> JwtAuthenticationProvider: 使用容器启动时根据公钥注入的jwtDecoder解析token,并认证jwt签名有效，authentication完成
+JwtAuthenticationProvider -> JwtAuthenticationConverter: 调用jwt解析
+JwtAuthenticationConverter -> JwtGrantedAuthoritiesConverter: 使用JwtGrantedAuthoritiesConverter来解析jwt中的scope域，添加SCOPE_前缀
+JwtGrantedAuthoritiesConverter --> JwtAuthenticationConverter: 返回authorities
+JwtAuthenticationConverter --> JwtAuthenticationProvider: 返回AbstractAuthenticationToken，包含jwt的信息
+JwtAuthenticationProvider --> providerManager:返回 Authentication结果
+providerManager --> ObservationAuthenticationManager:copy Authentication结果到传入的Authentication对象,但是返回result
+ObservationAuthenticationManager -> ObservationAuthenticationManager: 往AuthenticationObservationContext放入Authentication,并返回
+BearerTokenAuthenticationFilter -> BearerTokenAuthenticationFilter: 创建securityContext并设置Authentication
+BearerTokenAuthenticationFilter -> BearerTokenAuthenticationFilter: 调用filterChain.doFilter,继续执行filterChain
+
+@enduml

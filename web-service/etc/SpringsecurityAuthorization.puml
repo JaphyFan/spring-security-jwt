@@ -1,0 +1,12 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+title Spring Security Authorization Diagram
+autonumber
+filterChain -> AuthorizationFilter: 调用授权AuthorizationFilter
+AuthorizationFilter -> RequestMatcherDelegatingAuthorizationManager: for循环匹配security配置的url，来授予url的访问权限,当访问到any request auth时
+RequestMatcherDelegatingAuthorizationManager -> AuthenticatedAuthorizationManager: 已认证，所以访问授权
+AuthenticatedAuthorizationManager --> RequestMatcherDelegatingAuthorizationManager: 返回已认证
+RequestMatcherDelegatingAuthorizationManager --> AuthorizationFilter: 放行访问
+AuthorizationFilter --> filterChain: 继续执行filter chain
+
+@enduml

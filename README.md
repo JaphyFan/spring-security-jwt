@@ -1,24 +1,31 @@
-# spring security jwt sample
+# Spring Security Jwt Sample
 
-## prerequisites
+## Prerequisites
 - jdk17
 - springboot 3.0.4
 
-## 简介
-本项目分成三个模块
-- simple-jwt-service: jwt的基本实现
-- auth-service: 集成jwt认证和授权的服务,本质上是在simple-jwt-service扩展而来，为了简单，移除了RefreshToken的实现
-- web-service: 一个模拟第三方和auth-service交互的服务
+## Introduction
+The project is divided into three modules
+- simple-jwt-service: The basic implementation of jwt, which integrates security's oauth2, is more concise than jjwt's implementation, and realizes functions such as registration, login, and token refresh.
+- auth-service: a service that integrates jwt authentication and authorization. It is essentially an extension of simple-jwt-service. For simplicity, the implementation of RefreshToken is removed
+- web-service: a service that simulates the interaction between a third party and auth-service
 
+## How to run
+### simple-jwt-service
+It can run independently, register, log in, refresh token and other operations through the interface under /api/v1/auth, and then test it through the /test interface
 
-### 生成用于jwt的密钥对脚本
-注：本脚本是在mac下生成，windows下可能需要修改
+### auth-service and web-service
+You need to start the auth-service first, and then start the web-service. The web-service will pull the public key of the auth-service to verify the validity of the jwt, and then perform authentication tests and authorization tests based on prepost annotations through the web-service interface.
+
+## script
+### Generate key pair script for jwt
+Note: This script is generated under mac, it may need to be modified under windows
 
 ```bash
-# 先生成pem私钥，格式为 PEM-encoded X.509 format
+# Generate pem private key in PEM-encoded X.509 format
 openssl genrsa -out refresh.pem 2048
-# 生成公钥
+# generate public key
 openssl rsa -in refresh.pem -out refresh.pub -pubout
-# 将私钥转换成PKCS#8格式
+# Convert the private key to PKCS#8 format
 openssl pkcs8 -topk8 -inform PEM -in refresh.pem -outform PEM -out refresh.key -nocrypt
 ```
