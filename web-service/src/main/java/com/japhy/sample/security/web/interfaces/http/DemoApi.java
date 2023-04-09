@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.security.RolesAllowed;
+import java.security.Principal;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -43,8 +44,16 @@ public class DemoApi {
     @GetMapping("/preAuthorize/hasAuthority")
     @SecurityRequirement(name = "bearer-key")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public ResponseEntity<String> hasAuthority() {
+    public ResponseEntity<String> hasAuthority(Principal principal) {
         return ResponseEntity.ok("PreAuthorize hasAuthority ROLE_ADMIN");
+    }
+
+    @Operation(summary = "PreAuthorize id", description = "authentication.name 为jwt中sub字段")
+    @GetMapping("/preAuthorize/id")
+    @SecurityRequirement(name = "bearer-key")
+    @PreAuthorize("#id == authentication.name")
+    public ResponseEntity<String> hasAuthority(String id) {
+        return ResponseEntity.ok("PreAuthorize id: " + id);
     }
 
 }

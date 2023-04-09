@@ -23,6 +23,8 @@ import org.springframework.security.oauth2.server.authorization.config.annotatio
 @Configuration
 public class JWTConfig {
 
+    private final String KID = "e902868c-50ec-419c-a85a-1e181794577e";
+
     @Value("${jwt.access.public.key}")
     RSAPublicKey accessPubKey;
 
@@ -36,14 +38,15 @@ public class JWTConfig {
     }
 
     /**
-     * 生成jwt的公钥和私钥.Authorization需要
+     * 生成jwt的公钥和私钥.Authorization需要.
+     * kid和密钥对保持一致，同一密钥对kid不变，不然web-service重启后会判断认证不通过
      * @return
      */
     @Bean
     public JWKSource<SecurityContext> jwkSource() {
         RSAKey rsaKey = new RSAKey.Builder(accessPubKey)
                 .privateKey(accessPriKey)
-                .keyID(UUID.randomUUID().toString())
+                .keyID(KID)
                 .build();
         JWKSet jwkSet = new JWKSet(rsaKey);
         return (jwkSelector, securityContext) -> jwkSelector.select(jwkSet);
