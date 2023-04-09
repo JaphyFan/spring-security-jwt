@@ -1,4 +1,6 @@
-# Spring Security Jwt Sample
+<h1 align="center">Spring Security Jwt Sample </h1>
+
+> 中文文档 | [ENGLISH](README.md)
 
 ## 运行环境
 - jdk17

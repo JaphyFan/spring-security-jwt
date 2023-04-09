@@ -1,3 +1,6 @@
+<h1 align="center">Spring Security Jwt Sample </h1>
+
+> English | [中文文档](README_ZH.md)
 # Spring Security Jwt Sample
 
 ## Prerequisites
@@ -17,7 +20,7 @@ It can run independently, register, log in, refresh token and other operations t
 ### auth-service and web-service
 You need to start the auth-service first, and then start the web-service. The web-service will pull the public key of the auth-service to verify the validity of the jwt, and then perform authentication tests and authorization tests based on prepost annotations through the web-service interface.
 
-## script
+## Script
 ### Generate key pair script for jwt
 Note: This script is generated under mac, it may need to be modified under windows
 
