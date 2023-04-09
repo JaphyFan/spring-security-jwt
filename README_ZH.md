@@ -17,7 +17,7 @@
 可单独运行，通过/api/v1/auth下的接口进行注册、登陆、刷新token等操作，然后通过/test接口进行测试
 
 ### auth-service和web-service
-需要先启动auth-service，然后启动web-service，web-service会拉取auth-service的公钥用于认证jwt有效性，然后通过web-service的接口进行认证测试和基于prepost注解的授权测试
+需要先启动auth-service(profile=auth)，然后启动web-service，web-service会拉取auth-service的公钥用于认证jwt有效性，然后通过web-service的接口进行认证测试和基于prepost注解的授权测试
 
 ## 脚本
 ### 生成用于jwt的密钥对脚本

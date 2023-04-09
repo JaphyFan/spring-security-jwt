@@ -17,7 +17,7 @@ The project is divided into three modules
 It can run independently, register, log in, refresh token and other operations through the interface under /api/v1/auth, and then test it through the /test interface
 
 ### auth-service and web-service
-You need to start the auth-service first, and then start the web-service. The web-service will pull the public key of the auth-service to verify the validity of the jwt, and then perform authentication tests and authorization tests based on prepost annotations through the web-service interface.
+You need to start the auth-service(profile=auth) first, and then start the web-service. The web-service will pull the public key of the auth-service to verify the validity of the jwt, and then perform authentication tests and authorization tests based on prepost annotations through the web-service interface.
 
 ## Script
 ### Generate key pair script for jwt
