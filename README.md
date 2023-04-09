@@ -1,7 +1,6 @@
 <h1 align="center">Spring Security Jwt Sample </h1>
 
 > English | [中文文档](README_ZH.md)
-# Spring Security Jwt Sample
 
 ## Prerequisites
 - jdk17
